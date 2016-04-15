@@ -26,9 +26,9 @@ myscript <- system.file("extdata", "helloworld.R", package = "taskscheduleR")
 ## run script once within 62 seconds
 taskscheduler_create(taskname = "myfancyscript", rscript = myscript, 
   schedule = "ONCE", starttime = format(Sys.time() + 62, "%H:%M"))
-## run script every day at 09:10
+## run script every day at 09:10. Change the format of startdate to your locale if needed (e.g. US: %m/%d/%Y)
 taskscheduler_create(taskname = "myfancyscriptdaily", rscript = myscript, 
-  schedule = "DAILY", starttime = "09:10")
+  schedule = "DAILY", starttime = "09:10", startdate = format(Sys.Date(), "%d/%m/%Y"))
 
 ## get a data.frame of all tasks
 tasks <- taskscheduler_ls()
@@ -46,6 +46,14 @@ When the task has run, you can look at the log which contains everything from st
 system.file("extdata", "helloworld.log", package = "taskscheduleR")
 ```
 
+RStudio add-in
+-----------
+
+The package contains also an RStudio add-in. If you install the package and use RStudio version 0.99.893 or later you can just click to schedule a task. Just click Addins > Schedule Rscripts. Many thanks to ![OliverBLMS](https://github.com/OliverBLMS) 
+
+![taskscheduleR](inst/img/taskscheduleR-rstudioaddin.png) 
+
+Mark that the date format is the date format in Belgium. Change once to your locale if needed. E.g. in the US %m/%d/%Y
 
 Install
 -----------
@@ -60,4 +68,10 @@ Or from www.datatailor.be
 install.packages('data.table')
 install.packages('knitr')
 install.packages("taskscheduleR", repos = "http://www.datatailor.be/rcube", type = "source")
+```
+
+If you want the RStudio add-in to work, also install miniUI and shiny
+```
+install.packages('miniUI')
+install.packages('shiny')
 ```
